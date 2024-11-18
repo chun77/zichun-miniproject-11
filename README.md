@@ -1,69 +1,33 @@
+# Databricks Data Pipeline
 
-# Zichun Mini Project 1
+## Description
+This project demonstrates a PySpark-based data pipeline using Titanic data. The pipeline processes the data by cleaning and normalizing it, and stores the results in Parquet format.
 
-This is a Python project template with a functioning `Makefile`, a `.devcontainer`, and basic setup for CI/CD using GitHub Actions. The project also includes unit tests and linting with `pylint`.
+## Data Source
+- The data source is the `titanic.csv` file, uploaded to the Databricks file system (DBFS) at `dbfs:/FileStore/tables/titanic.csv`.
 
-## Links
+## Data Sink
+- The processed data is stored in Parquet format at `dbfs:/output/titanic_processed/`.
 
-- **Version control Source Code Management Repository**: [github repo](https://github.com/nogibjj/zichun-miniproject-1).
-- **Link to successful CI/CD run**: [Link to GitHub Actions](https://github.com/nogibjj/zichun-miniproject-1/actions).
+## Features
+- Reads data from the Titanic dataset uploaded to DBFS.
+- Cleans and transforms the data.
+- Stores the processed data into a specified sink directory in Parquet format.
 
+## How to Run
+1. **Data Source Setup**:
+   Upload `titanic.csv` to Databricks at `dbfs:/FileStore/tables/titanic.csv`.
 
-## Project Setup
+2. **Run the Pipeline**:
+   - The pipeline script `src/main.py` reads the source, processes it, and writes the output to the sink.
 
-### 1. Clone the Repository
+3. **Check Output**:
+   - The output Parquet files are saved in the directory `dbfs:/output/titanic_processed/`.
 
-```bash
-git clone https://github.com/your-username/zichun-miniproject-1.git
-cd zichun-miniproject-1
-```
+## CI/CD
+- The GitHub Actions workflow automates the execution of the Databricks notebook.
+- Ensure your Databricks environment is configured with a valid host and token.
 
-### 2. Install Dependencies
+## Output
+- The final processed data is saved in Parquet format and can be used for downstream analytics.
 
-You can install the required Python dependencies by running:
-
-```bash
-make setup
-```
-
-This will install all the packages listed in `requirements.txt`.
-
-### 3. Running the Linter
-
-To ensure your code follows proper Python style guidelines, run:
-
-```bash
-make lint
-```
-
-This will run `pylint` on the `src/main.py` file.
-
-### 4. Running Tests
-
-To run the unit tests using `pytest`, use the following command:
-
-```bash
-make test
-```
-
-The `Makefile` is set up to run the tests in the `tests/` directory.
-
-## Usage Instructions
-
-The project contains a simple `add` function and a main script. You can run the main script as follows:
-
-```bash
-python src/main.py
-```
-
-The `main.py` file will print "Hello, world!" when executed.
-
-## CI/CD Pipeline
-
-This project uses GitHub Actions for Continuous Integration (CI). The workflow is defined in the `.github/workflows/ci.yml` file and runs automatically on every push to the main branch. The CI performs the following actions:
-- Linting with `pylint`
-- Running unit tests with `pytest`
-
-## Development Environment with Devcontainer
-
-A development container is included to ensure consistency in development environments. The `.devcontainer` folder contains a `Dockerfile` and `devcontainer.json` file for setting up the containerized development environment in tools like Visual Studio Code.

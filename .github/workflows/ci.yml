@@ -1,36 +1,30 @@
-name: Python CI
+name: Databricks CI/CD Pipeline
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
-  build:
+  databricks-job:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
-
-      - name: Install dependencies
+      - name: Install Databricks CLI
         run: |
-          pip install -r requirements.txt
+          pip install databricks-cli
 
-      - name: Lint with pylint
+      - name: Configure Databricks CLI
         run: |
-          pylint src/main.py
-
-      - name: Run tests
+          databricks configure --token
         env:
-          PYTHONPATH: ${{ github.workspace }}/src  # Set PYTHONPATH to include src
-        run: |
-          pytest tests
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
 
+      - name: Run Databricks Notebook
+        run: |
+          databricks notebooks run \
+          --notebook-path /Shared/zichun-mini project-11/src/main.py \
+          --existing-cluster-id 1118-031418-94bnzdpv
