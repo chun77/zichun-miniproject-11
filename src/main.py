@@ -1,6 +1,7 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, mean, stddev
 
+# Create a SparkSession
 spark = SparkSession.builder.appName("Titanic Data Pipeline").getOrCreate()
 
 source_path = "dbfs:/FileStore/tables/titanic.csv"
